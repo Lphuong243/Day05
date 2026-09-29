@@ -8,6 +8,27 @@ import java.sql.SQLException;
 
 public class UserDB {
 
+    static {
+        // Tự động kiểm tra và tạo bảng "User" nếu trên Database chưa có (tránh lỗi thiếu bảng trên host Render)
+        initTable();
+    }
+
+    public static void initTable() {
+        String createTableSQL = "CREATE TABLE IF NOT EXISTS \"User\" ("
+                + "\"UserID\" SERIAL PRIMARY KEY, "
+                + "\"Email\" VARCHAR(100), "
+                + "\"FirstName\" VARCHAR(50), "
+                + "\"LastName\" VARCHAR(50)"
+                + ");";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(createTableSQL)) {
+            ps.execute();
+        } catch (Exception e) {
+            System.err.println(">> Tự động tạo bảng User: " + e.getMessage());
+        }
+    }
+
     public static int insert(User user) {
         String query = "INSERT INTO \"User\" (\"Email\", \"FirstName\", \"LastName\") VALUES (?, ?, ?)";
 

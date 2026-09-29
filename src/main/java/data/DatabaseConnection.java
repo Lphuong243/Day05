@@ -5,9 +5,16 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
-    private static final String URL = "jdbc:postgresql://localhost:5432/murach_db";
-    private static final String USER = "postgres";
-    private static final String PASSWORD = "7358243Lp**"; // Thay mật khẩu postgres của bạn ở đây
+
+    // 1. Cấu hình khi chạy trên Localhost (máy của bạn)
+    private static final String LOCAL_URL = "jdbc:postgresql://localhost:5432/murach_db";
+    private static final String LOCAL_USER = "postgres";
+    private static final String LOCAL_PASSWORD = "7358243Lp**";
+
+    // 2. Cấu hình khi chạy trên Render (Host online từ file persistence.xml của bạn)
+    private static final String RENDER_URL = "jdbc:postgresql://dpg-datt14ou01pc73aecb50-a/email_list_db_jut9?sslmode=require";
+    private static final String RENDER_USER = "email_list_db_jut9_user";
+    private static final String RENDER_PASSWORD = "2hI1wdw0KNvIH77Bilyuv4COJ7mkXDB";
 
     static {
         try {
@@ -19,6 +26,17 @@ public class DatabaseConnection {
     }
 
     public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PASSWORD);
+        // Tự động nhận diện: Render sẽ luôn có các biến môi trường RENDER=true hoặc RENDER_SERVICE_ID
+        boolean isRender = System.getenv("RENDER") != null 
+                        || System.getenv("RENDER_SERVICE_ID") != null
+                        || System.getenv("DATABASE_URL") != null;
+
+        if (isRender) {
+            // Khi deploy lên Render -> Tự động dùng Database Render
+            return DriverManager.getConnection(RENDER_URL, RENDER_USER, RENDER_PASSWORD);
+        } else {
+            // Khi chạy ở máy tính -> Dùng Database Localhost
+            return DriverManager.getConnection(LOCAL_URL, LOCAL_USER, LOCAL_PASSWORD);
+        }
     }
 }
