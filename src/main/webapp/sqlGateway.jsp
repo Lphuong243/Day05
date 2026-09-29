@@ -9,9 +9,9 @@
 </head>
 <body>
     <div class="container">
-        <div style="margin-bottom: 18px; padding-bottom: 8px; border-bottom: 1px solid #ddd; font-size: 13px;">
-            <a href="sqlGateway" style="color: #006666; font-weight: bold; margin-right: 20px; text-decoration: none;">➔ The SQL Gateway</a>
-            <a href="emailList" style="color: #006666; font-weight: bold; text-decoration: none;">➔ Join Email List</a>
+        <div class="nav-links">
+            <a href="sqlGateway">➔ The SQL Gateway</a>
+            <a href="emailList">➔ Join Email List</a>
         </div>
         <h1 class="title">The SQL Gateway</h1>
         <p class="instruction">Enter an SQL statement and click the Execute button.</p>

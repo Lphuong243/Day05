@@ -8,10 +8,6 @@ import java.sql.SQLException;
 
 public class UserDB {
 
-    /**
-     * Thêm mới một User vào bảng "User" trong PostgreSQL sử dụng PreparedStatement.
-     * Trả về số dòng bị ảnh hưởng (1 nếu thành công, 0 nếu thất bại).
-     */
     public static int insert(User user) {
         String query = "INSERT INTO \"User\" (\"Email\", \"FirstName\", \"LastName\") VALUES (?, ?, ?)";
 
@@ -30,9 +26,6 @@ public class UserDB {
         }
     }
 
-    /**
-     * Kiểm tra email đã tồn tại trong PostgreSQL chưa
-     */
     public static boolean emailExists(String email) {
         String query = "SELECT \"Email\" FROM \"User\" WHERE \"Email\" = ?";
 
@@ -44,15 +37,11 @@ public class UserDB {
                 return rs.next();
             }
         } catch (SQLException e) {
-            System.err.println("Lỗi kiểm tra email trong PostgreSQL: " + e.getMessage());
-            e.printStackTrace();
+            System.err.println("Lỗi kiểm tra email: " + e.getMessage());
             return false;
         }
     }
 
-    /**
-     * Lấy thông tin User theo Email
-     */
     public static User selectUser(String email) {
         String query = "SELECT \"Email\", \"FirstName\", \"LastName\" FROM \"User\" WHERE \"Email\" = ?";
 
@@ -71,47 +60,7 @@ public class UserDB {
             }
         } catch (SQLException e) {
             System.err.println("Lỗi select user: " + e.getMessage());
-            e.printStackTrace();
         }
         return null;
-    }
-
-    /**
-     * Cập nhật thông tin User theo Email
-     */
-    public static int update(User user) {
-        String query = "UPDATE \"User\" SET \"FirstName\" = ?, \"LastName\" = ? WHERE \"Email\" = ?";
-
-        try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement ps = connection.prepareStatement(query)) {
-
-            ps.setString(1, user.getFirstName());
-            ps.setString(2, user.getLastName());
-            ps.setString(3, user.getEmail());
-
-            return ps.executeUpdate();
-        } catch (SQLException e) {
-            System.err.println("Lỗi update user: " + e.getMessage());
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
-    /**
-     * Xóa User theo Email
-     */
-    public static int delete(User user) {
-        String query = "DELETE FROM \"User\" WHERE \"Email\" = ?";
-
-        try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement ps = connection.prepareStatement(query)) {
-
-            ps.setString(1, user.getEmail());
-            return ps.executeUpdate();
-        } catch (SQLException e) {
-            System.err.println("Lỗi delete user: " + e.getMessage());
-            e.printStackTrace();
-            return 0;
-        }
     }
 }

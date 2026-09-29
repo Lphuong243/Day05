@@ -12,10 +12,6 @@ import java.util.List;
 
 public class SqlDao {
 
-    /**
-     * Thực thi câu lệnh SQL sử dụng PreparedStatement.
-     * Hỗ trợ cả câu lệnh truy vấn (SELECT) và câu lệnh cập nhật (INSERT, UPDATE, DELETE, DDL).
-     */
     public QueryResult executeSql(String sqlStatement) {
         QueryResult result = new QueryResult();
 
@@ -28,8 +24,6 @@ public class SqlDao {
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sqlStatement.trim())) {
 
-            // ps.execute() trả về true nếu câu lệnh trả về ResultSet (SELECT)
-            // trả về false nếu là số dòng ảnh hưởng (INSERT, UPDATE, DELETE)
             boolean isResultSet = ps.execute();
 
             if (isResultSet) {
@@ -38,14 +32,12 @@ public class SqlDao {
                     ResultSetMetaData metaData = rs.getMetaData();
                     int columnCount = metaData.getColumnCount();
 
-                    // Lấy danh sách tên cột
                     List<String> columns = new ArrayList<>();
                     for (int i = 1; i <= columnCount; i++) {
                         columns.add(metaData.getColumnName(i));
                     }
                     result.setColumnNames(columns);
 
-                    // Lấy dữ liệu từng dòng
                     List<List<String>> rows = new ArrayList<>();
                     while (rs.next()) {
                         List<String> row = new ArrayList<>();

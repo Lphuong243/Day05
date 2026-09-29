@@ -29,7 +29,7 @@
       <version>42.7.2</version>
     </dependency>
 
-    <!-- Jakarta Mail API & Implementation (Gửi email qua SMTP Gmail) -->
+    <!-- Jakarta Mail API & Implementation -->
     <dependency>
       <groupId>jakarta.mail</groupId>
       <artifactId>jakarta.mail-api</artifactId>

@@ -9,10 +9,6 @@ public class SqlService {
         this.sqlDao = new SqlDao();
     }
 
-    /**
-     * Tầng xử lý nghiệp vụ: kiểm tra input, chuẩn hóa tương thích PostgreSQL
-     * và gọi tầng DAO để thực thi câu lệnh SQL.
-     */
     public QueryResult processSql(String sqlStatement) {
         if (sqlStatement == null || sqlStatement.trim().isEmpty()) {
             QueryResult res = new QueryResult();

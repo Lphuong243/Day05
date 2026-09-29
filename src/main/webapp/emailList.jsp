@@ -6,55 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Murach's Java Servlets and JSP - Email List</title>
     <link rel="stylesheet" href="styles/main.css" type="text/css"/>
-    <style>
-        .form-row {
-            margin-bottom: 12px;
-        }
-        .form-row label {
-            display: inline-block;
-            width: 110px;
-            font-weight: bold;
-        }
-        .form-row input[type="text"],
-        .form-row input[type="email"] {
-            width: 250px;
-            padding: 5px 8px;
-            border: 1px solid #777;
-            font-size: 14px;
-        }
-        .btn-submit {
-            background-color: #efefef;
-            color: #000;
-            border: 1px solid #767676;
-            padding: 4px 15px;
-            font-size: 13px;
-            cursor: pointer;
-            margin-left: 115px;
-            margin-top: 5px;
-        }
-        .btn-submit:hover {
-            background-color: #e5e5e5;
-        }
-        .nav-links {
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-        .nav-links a {
-            color: #006666;
-            text-decoration: none;
-            font-weight: bold;
-            margin-right: 15px;
-        }
-        .nav-links a:hover {
-            text-decoration: underline;
-        }
-    </style>
 </head>
 <body>
 <div class="container">
     <nav class="nav-links">
-        <a href="sqlGateway">➔ Go to The SQL Gateway</a>
+        <a href="sqlGateway">➔ The SQL Gateway</a>
         <a href="emailList">➔ Join Email List</a>
     </nav>
 
