@@ -14,15 +14,14 @@
             <!-- Driver kết nối PostgreSQL -->
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
 
-            <!-- URL đã được thêm đầy đủ tiền tố jdbc:postgresql:// và host của Render -->
-            <property name="jakarta.persistence.jdbc.url" value="postgresql://email_list_db_jut9_user:2hI1wdwOOKNvIH77Bilyuv4COJ7mkXDB@dpg-datt14ou01pc73aecb50-a.oregon-postgres.render.com/email_list_db_jut9"/>
-            <property name="jakarta.persistence.jdbc.user" value="email_list_db_jut9_user"/>
-            <!-- Thay chuỗi bên dưới bằng Password thật copy từ mục Connections của email-list-db trên Render -->
-            <property name="jakarta.persistence.jdbc.password" value="2hI1wdwOOKNvIH77Bilyuv4COJ7mkXDB"/>
+            <!-- URL kết nối chuẩn JDBC (Sử dụng Internal Hostname vì các dịch vụ trên Render nằm cùng mạng nội bộ) -->
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://dpg-datt14ou01pc73aecb50-a/email_list_db_jut9?sslmode=require"/>
 
-            <!-- Cấu hình EclipseLink tự động tạo/cập nhật bảng -->
-            <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
-            <property name="eclipselink.logging.level" value="INFO"/>
+            <!-- Username -->
+            <property name="jakarta.persistence.jdbc.user" value="email_list_db_jut9_user"/>
+
+            <!-- Password -->
+            <property name="jakarta.persistence.jdbc.password" value="2hI1wdw0KNvIH77Bilyuv4COJ7mkXDB"/>
         </properties>
     </persistence-unit>
 </persistence>
