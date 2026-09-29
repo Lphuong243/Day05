@@ -1,0 +1,131 @@
+/* CSS3 cho ứng dụng The SQL Gateway (chuẩn giao diện Murach) */
+:root {
+    --primary-color: #006666;
+    --text-color: #222222;
+    --border-color: #777777;
+    --bg-color: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    padding: 25px 30px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h1.title {
+    color: var(--primary-color);
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.instruction {
+    font-size: 14px;
+    margin-bottom: 16px;
+    color: #333333;
+}
+
+.label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 14px;
+}
+
+textarea.sql-input {
+    width: 100%;
+    max-width: 650px;
+    height: 140px;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 14px;
+    padding: 8px 10px;
+    border: 1px solid var(--border-color);
+    outline: none;
+    resize: both;
+    display: block;
+}
+
+textarea.sql-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 3px rgba(0, 102, 102, 0.4);
+}
+
+.btn-execute {
+    background-color: #efefef;
+    color: #000000;
+    border: 1px solid #767676;
+    border-radius: 2px;
+    padding: 3px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.btn-execute:hover {
+    background-color: #e5e5e5;
+}
+
+.btn-execute:active {
+    background-color: #d0d0d0;
+}
+
+.result-section {
+    margin-top: 10px;
+}
+
+.success-msg {
+    margin-top: 6px;
+    color: #000000;
+    font-size: 14px;
+}
+
+.error-msg {
+    margin-top: 6px;
+    color: #c00000;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Bảng kết quả truy vấn SELECT */
+table.result-table {
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 14px;
+    min-width: 450px;
+    border: 1px solid #333333;
+}
+
+table.result-table th,
+table.result-table td {
+    border: 1px solid #555555;
+    padding: 6px 14px;
+    text-align: left;
+}
+
+table.result-table th {
+    font-weight: bold;
+    color: #000000;
+    background-color: #ffffff;
+}
+
+table.result-table td {
+    color: #222222;
+}
