@@ -15,7 +15,7 @@
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
 
             <!-- URL KẾT NỐI ĐÃ ĐƯỢC SỬA: Đã xóa phần user:pass@ và thêm ?sslmode=require -->
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://dpg-datt14ou01pc73aecb50-a.oregon-postgres.render.com/email_list_db_jut9?sslmode=require"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://email_list_db_jut9_user:2hI1wdwOOKNvIH77Bilyuv4COJ7mkXDB@dpg-datt14ou01pc73aecb50-a.oregon-postgres.render.com/email_list_db_jut9"/>
 
             <!-- Username -->
             <property name="jakarta.persistence.jdbc.user" value="email_list_db_jut9_user"/>
