@@ -57,7 +57,11 @@ public class EmailListServlet extends HttpServlet {
                     message = "";
                     url = "/thanks.jsp";
                 } else {
-                    message = "Could not add user. An error occurred in database.";
+                    String errDetail = UserDB.lastError;
+                    if (errDetail == null || errDetail.isEmpty()) {
+                        errDetail = "An error occurred in database.";
+                    }
+                    message = "Could not add user. " + errDetail;
                     url = "/emailList.jsp";
                 }
             }

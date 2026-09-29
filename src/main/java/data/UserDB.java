@@ -8,8 +8,9 @@ import java.sql.SQLException;
 
 public class UserDB {
 
+    public static String lastError = "";
+
     static {
-        // Tự động kiểm tra và tạo bảng "User" nếu trên Database chưa có (tránh lỗi thiếu bảng trên host Render)
         initTable();
     }
 
@@ -26,10 +27,12 @@ public class UserDB {
             ps.execute();
         } catch (Exception e) {
             System.err.println(">> Tự động tạo bảng User: " + e.getMessage());
+            lastError = e.getMessage();
         }
     }
 
     public static int insert(User user) {
+        lastError = "";
         String query = "INSERT INTO \"User\" (\"Email\", \"FirstName\", \"LastName\") VALUES (?, ?, ?)";
 
         try (Connection connection = DatabaseConnection.getConnection();
@@ -42,6 +45,7 @@ public class UserDB {
             return ps.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Lỗi insert user vào PostgreSQL: " + e.getMessage());
+            lastError = e.getMessage();
             e.printStackTrace();
             return 0;
         }
@@ -59,6 +63,7 @@ public class UserDB {
             }
         } catch (SQLException e) {
             System.err.println("Lỗi kiểm tra email: " + e.getMessage());
+            lastError = e.getMessage();
             return false;
         }
     }
@@ -81,6 +86,7 @@ public class UserDB {
             }
         } catch (SQLException e) {
             System.err.println("Lỗi select user: " + e.getMessage());
+            lastError = e.getMessage();
         }
         return null;
     }
