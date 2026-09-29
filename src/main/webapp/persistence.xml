@@ -15,13 +15,13 @@
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
 
             <!-- URL kết nối chuẩn JDBC (Sử dụng Internal Hostname vì các dịch vụ trên Render nằm cùng mạng nội bộ) -->
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://dpg-datt14ou01pc73aecb50-a/email_list_db_jut9?sslmode=require"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://email_list_db_jut9_user:2hI1wdwOOKNvIH77Bilyuv4COJ7mkXDB@dpg-datt14ou01pc73aecb50-a.oregon-postgres.render.com/email_list_db_jut9"/>
 
             <!-- Username -->
             <property name="jakarta.persistence.jdbc.user" value="email_list_db_jut9_user"/>
 
             <!-- Password -->
-            <property name="jakarta.persistence.jdbc.password" value="2hI1wdw0KNvIH77Bilyuv4COJ7mkXDB"/>
+            <property name="jakarta.persistence.jdbc.password" value="2hI1wdwOOKNvIH77Bilyuv4COJ7mkXDB"/>
         </properties>
     </persistence-unit>
 </persistence>
