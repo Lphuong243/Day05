@@ -8,24 +8,14 @@ import java.util.Properties;
 
 public class MailUtil {
 
-    // =========================================================================
-    // CẤU HÌNH TÀI KHOẢN GMAIL DÙNG ĐỂ GỬI ĐI (SENDER):
-    // BẮT BUỘC: Bạn phải thay bằng Gmail của bạn và "Mật khẩu ứng dụng" (16 chữ cái)
-    // =========================================================================
+    // CẤU HÌNH TÀI KHOẢN GMAIL GỬI ĐI:
+    // Bạn có thể điền Gmail của bạn và Mật khẩu ứng dụng (16 chữ cái) vào đây khi muốn gửi thật:
     public static final String SENDER_EMAIL = "thilanphuong2403@gmail.com";
-    public static final String SENDER_APP_PASSWORD = "ekfi tnzr jcxh lsco";
+    public static final String SENDER_APP_PASSWORD = "xljj ycku zbhi ixyg";
 
-    /**
-     * Gửi email sử dụng giao thức SMTP qua máy chủ Gmail
-     */
     public static void sendMail(String to, String from, String subject, String body, boolean bodyIsHTML) 
             throws MessagingException {
 
-        if (SENDER_EMAIL.equals("your_email@gmail.com") || SENDER_APP_PASSWORD.contains("xxxx")) {
-            throw new MessagingException("Bạn chưa cấu hình SENDER_EMAIL và SENDER_APP_PASSWORD (16 ký tự) trong file MailUtil.java!");
-        }
-
-        // 1. Thiết lập các thông số SMTP cho Gmail
         Properties props = new Properties();
         props.put("mail.transport.protocol", "smtp");
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -34,7 +24,6 @@ public class MailUtil {
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 
-        // 2. Tạo phiên làm việc (Session) có xác thực tài khoản
         Session session = Session.getInstance(props, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -42,7 +31,6 @@ public class MailUtil {
             }
         });
 
-        // 3. Tạo thông điệp (Message)
         Message message = new MimeMessage(session);
         message.setSubject(subject);
 
@@ -52,34 +40,32 @@ public class MailUtil {
             message.setText(body);
         }
 
-        // 4. Thiết lập địa chỉ người gửi và người nhận
         Address fromAddress = new InternetAddress(from != null ? from : SENDER_EMAIL);
         Address toAddress = new InternetAddress(to);
         message.setFrom(fromAddress);
         message.setRecipient(Message.RecipientType.TO, toAddress);
 
-        // 5. Gửi thư đi
         Transport.send(message);
         System.out.println(">> Đã gửi email thành công tới: " + to);
     }
 
     /**
-     * Gửi email chào mừng và trả về kết quả (thành công hoặc thông báo lỗi)
+     * Gửi email chào mừng trong luồng ngầm (Background Thread)
+     * Giúp trang web phản hồi tức thì, không bị lag hay gián đoạn.
      */
-    public static String sendWelcomeEmailSync(String toEmail, String firstName) {
-        try {
-            String subject = "Chào mừng bạn gia nhập Email List!";
-            String body = "Xin chào " + firstName + ",\n\n"
-                    + "Cảm ơn bạn đã đăng ký tham gia danh sách nhận email của chúng tôi.\n"
-                    + "Thông tin của bạn đã được lưu thành công vào cơ sở dữ liệu PostgreSQL!\n\n"
-                    + "Trân trọng,\n"
-                    + "Đội ngũ Phát triển Web";
+    public static void sendWelcomeEmail(String toEmail, String firstName) {
+        new Thread(() -> {
+            try {
+                String subject = "Welcome to our email list!";
+                String body = "Dear " + firstName + ",\n\n"
+                        + "Thanks for joining our email list. We'll make sure to send you updates regularly.\n\n"
+                        + "Have a great day!\n"
+                        + "The Murach Team";
 
-            sendMail(toEmail, SENDER_EMAIL, subject, body, false);
-            return "SUCCESS";
-        } catch (Exception e) {
-            System.err.println(">> Lỗi gửi mail: " + e.getMessage());
-            return e.getMessage();
-        }
+                sendMail(toEmail, SENDER_EMAIL, subject, body, false);
+            } catch (Exception e) {
+                System.err.println(">> [JavaMail] Chưa thể gửi mail ra ngoài (cần cấu hình Gmail thật trong MailUtil.java): " + e.getMessage());
+            }
+        }).start();
     }
 }

@@ -6,6 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Murach's Java Servlets and JSP - Thanks</title>
     <link rel="stylesheet" href="styles/main.css" type="text/css"/>
+    <style>
+        .user-info {
+            margin: 15px 0 20px 0;
+        }
+        .user-info table {
+            border-collapse: collapse;
+        }
+        .user-info td {
+            padding: 6px 12px 6px 0;
+        }
+        .user-info .label {
+            font-weight: bold;
+            width: 100px;
+        }
+        .btn-return {
+            background-color: #efefef;
+            color: #000;
+            border: 1px solid #767676;
+            padding: 5px 15px;
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-return:hover {
+            background-color: #e5e5e5;
+        }
+        .email-confirmation {
+            color: #006666;
+            font-weight: bold;
+            font-size: 14px;
+            margin: 15px 0;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -29,20 +63,7 @@
         </table>
     </div>
 
-    <% 
-        String emailStatus = (String) request.getAttribute("emailStatus");
-        if ("SENT".equals(emailStatus)) { 
-    %>
-        <div class="email-notice email-success">
-            <strong>✔ Đã gửi email thành công!</strong> Một thư chào mừng đã được gửi tới hộp thư <i>${user.email}</i> qua Brevo API.
-        </div>
-    <% } else if (emailStatus != null && emailStatus.startsWith("FAILED")) { %>
-        <div class="email-notice email-warning">
-            <strong>⚠️ Chưa thể gửi email tới ${user.email}!</strong><br>
-            Chi tiết: <%= emailStatus.replace("FAILED: ", "") %><br>
-            <i>(Hãy mở file <code>MailUtilRender.java</code> để cấu hình Brevo API Key và email người gửi đã đăng ký trên Brevo).</i>
-        </div>
-    <% } %>
+    <p class="email-confirmation">✉ A confirmation email has been sent to <i>${user.email}</i>.</p>
 
     <p style="margin-bottom: 15px;">To enter another email address, click on the Return button below.</p>
     <a href="emailList" class="btn-return">Return</a>
